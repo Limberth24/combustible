@@ -115,6 +115,10 @@ body {
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 
+.form-card.form-card-wide {
+    max-width: 100%;
+}
+
 .form-card h2 {
     color: #1b4332;
     margin-bottom: 1.5rem;
@@ -189,14 +193,315 @@ body {
     margin-top: 2rem;
 }
 
+/* Tablas */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background: #2d6a4f;
+    color: white;
+    white-space: nowrap;
+}
+
+td {
+    vertical-align: middle;
+}
+
+/* Rendimiento */
+.rendimiento-bajo {
+    color: #e74c3c;
+    font-weight: bold;
+    background: #fdecea;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.rendimiento-bueno {
+    color: #27ae60;
+    font-weight: bold;
+    background: #e8f5e9;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.rendimiento-normal {
+    color: #666;
+    background: #f5f5f5;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+/* Resumen */
+.resumen-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.resumen-card {
+    background: linear-gradient(135deg, #1a472a, #2d6a4f);
+    color: white;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.resumen-card .label {
+    font-size: 0.85em;
+    opacity: 0.8;
+}
+
+.resumen-card .value {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+/* Ranking */
+.ranking-container {
+    margin-top: 20px;
+}
+
 .ranking-item {
     display: flex;
     justify-content: space-between;
-    padding: 12px;
-    margin: 8px 0;
+    align-items: center;
+    padding: 15px;
+    margin: 10px 0;
     background: white;
     border-radius: 8px;
-    border-left: 4px solid #2d6a4f;
+    border-left: 5px solid #2d6a4f;
+}
+
+.ranking-item.posicion-1 {
+    border-left-color: #ffd700;
+    background: linear-gradient(135deg, #fff9e6, #fff);
+}
+
+.ranking-item.posicion-2 {
+    border-left-color: #c0c0c0;
+}
+
+.ranking-item.posicion-3 {
+    border-left-color: #cd7f32;
+}
+
+.ranking-item.alerta {
+    border-left-color: #e74c3c;
+    background: #fff5f5;
+}
+
+.ranking-info h4 {
+    margin: 0 0 5px 0;
+    color: #1b4332;
+}
+
+.ranking-info p {
+    margin: 0;
+    color: #666;
+    font-size: 0.9em;
+}
+
+.ranking-metricas {
+    text-align: right;
+}
+
+.rendimiento-valor {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #2d6a4f;
+}
+
+.rendimiento-bajo-texto {
+    color: #e74c3c;
+}
+
+.costo-badge {
+    background: #219ebc;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.85em;
+}
+
+.costo-eficiencia {
+    font-size: 0.85em;
+    color: #666;
+}
+
+/* Vehiculo card */
+.vehiculo-card {
+    background: linear-gradient(135deg, #1a472a, #2d6a4f);
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.vehiculo-card h3 {
+    margin-top: 0;
+    border-bottom: 1px solid rgba(255,255,255,0.3);
+    padding-bottom: 10px;
+}
+
+.vehiculo-info {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.vehiculo-info-item {
+    padding: 5px 0;
+}
+
+.vehiculo-info-item label {
+    color: rgba(255,255,255,0.7);
+    font-size: 0.9em;
+}
+
+.vehiculo-info-item span {
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+.rendimiento-badge {
+    background: rgba(255,255,255,0.2);
+    padding: 10px;
+    border-radius: 8px;
+    text-align: center;
+    margin-top: 15px;
+}
+
+.rendimiento-badge .label {
+    font-size: 0.85em;
+    color: rgba(255,255,255,0.8);
+}
+
+.rendimiento-badge .value {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+/* Surtidor */
+.surtidor-group {
+    display: flex;
+    gap: 10px;
+    align-items: flex-end;
+}
+
+.surtidor-group .form-group {
+    flex: 1;
+}
+
+.btn-add-surtidor {
+    padding: 0.8rem;
+    background: #219ebc;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.btn-add-surtidor:hover {
+    background: #1a7a8a;
+}
+
+/* Form link */
+.form-link {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.form-link a {
+    color: #2d6a4f;
+    text-decoration: none;
+}
+
+.form-link a:hover {
+    text-decoration: underline;
+}
+
+/* Form actions */
+.form-actions {
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Table wrapper for overflow */
+.table-wrapper {
+    overflow-x: auto;
+    margin-bottom: 20px;
+}
+
+.table-wrapper table {
+    min-width: 900px;
+}
+
+/* Listado header */
+.listado-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+/* Botón reporte */
+.btn-reporte {
+    margin-top: 20px;
+    text-align: center;
+}
+
+/* Alerta anomalia */
+.alerta-anomalia {
+    background: #fff3cd;
+    border: 1px solid #ffc107;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+/* Resumen container */
+.resumen-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+/* Acciones cell */
+.acciones-cell {
+    white-space: nowrap;
+}
+
+/* Botones acción tabla */
+.btn-accion {
+    padding: 5px 10px;
+    margin: 0 2px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.btn-accion.btn-editar {
+    background: #219ebc;
+    color: white;
+}
+
+.btn-accion.btn-eliminar {
+    background: #e74c3c;
+    color: white;
+    border: none;
+    cursor: pointer;
 }
 
 @media (max-width: 768px) {
@@ -214,5 +519,8 @@ body {
     .form-card {
         margin: 1rem;
         padding: 1.5rem;
+    }
+    .resumen-grid {
+        grid-template-columns: repeat(2, 1fr);
     }
 }

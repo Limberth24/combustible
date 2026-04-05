@@ -1,19 +1,24 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <title>Buscar Vehiculo</title>
     <link rel="stylesheet" href="assets/style.css">
 </head>
+
 <body>
     <nav class="navbar">
         <div class="container">
-            <div class="logo"><h1>CombustibleControl</h1></div>
+            <div class="logo">
+                <h1>CombustibleControl</h1>
+            </div>
             <ul class="nav-menu">
                 <li><a href="index.php?action=landing">Inicio</a></li>
                 <li><a href="index.php?action=nuevoRegistro">Nuevo Registro</a></li>
                 <li><a href="index.php?action=buscarPlacaCarga" class="active">Registro</a></li>
                 <li><a href="index.php?action=buscarPlacaHistorial">Historial</a></li>
+                <li><a href="index.php?action=listarSurtidores">Surtidores</a></li>
             </ul>
         </div>
     </nav>
@@ -27,8 +32,13 @@
             </div>
             <button type="submit" class="btn-submit">Buscar</button>
         </form>
-        <div style="text-align:center; margin-top:20px;"><a href="index.php?action=nuevoRegistro">Registrar nuevo vehiculo</a></div>
+        <div class="form-link"><a href="index.php?action=nuevoRegistro">Registrar nuevo vehiculo</a></div>
     </div>
-    <footer class="footer"><div class="container"><p>2024 Sistema de Control de Consumo de Combustible</p></div></footer>
+    <footer class="footer">
+        <div class="container">
+            <p>2026 Sistema de Control de Consumo de Combustible</p>
+        </div>
+    </footer>
 </body>
+
 </html>

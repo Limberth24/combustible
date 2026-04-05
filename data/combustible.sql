@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 03-04-2026 a las 14:15:29
--- Versión del servidor: 9.1.0
--- Versión de PHP: 8.3.14
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 05-04-2026 a las 20:27:02
+-- Versión del servidor: 10.4.32-MariaDB
+-- Versión de PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -26,26 +26,16 @@ SET time_zone = "+00:00";
 --
 -- Estructura de tabla para la tabla `cargas`
 --
-DROP TABLE IF EXISTS `cargas`;
-CREATE TABLE IF NOT EXISTS `cargas` (
-  `id_carga` int NOT NULL AUTO_INCREMENT,
-  `fecha` date DEFAULT NULL,
-  `kilometraje` double DEFAULT NULL,
-  `litros` double DEFAULT NULL,
-  `precio_total` double DEFAULT NULL,
-  `id_vehiculo` int DEFAULT NULL,
-  `id_surtidor` int DEFAULT NULL,
-  PRIMARY KEY (`id_carga`),
-  KEY `id_vehiculo` (`id_vehiculo`),
-  KEY `id_surtidor` (`id_surtidor`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
---
--- Volcado de datos para la tabla `cargas`
---
 
-INSERT INTO `cargas` (`id_carga`, `fecha`, `kilometraje`, `litros`, `precio_total`, `id_vehiculo`, `id_surtidor`) VALUES
-(1, '2026-04-03', 20, 10, 70, 1, 1),
-(2, '2026-04-06', 35, 10, 70, 1, 2);
+CREATE TABLE `cargas` (
+  `id_carga` int(11) NOT NULL,
+  `fecha` date NOT NULL,
+  `kilometraje` double NOT NULL,
+  `litros` double NOT NULL,
+  `precio_total` double NOT NULL,
+  `id_vehiculo` int(11) NOT NULL,
+  `id_surtidor` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -53,21 +43,11 @@ INSERT INTO `cargas` (`id_carga`, `fecha`, `kilometraje`, `litros`, `precio_tota
 -- Estructura de tabla para la tabla `surtidores`
 --
 
-DROP TABLE IF EXISTS `surtidores`;
-CREATE TABLE IF NOT EXISTS `surtidores` (
-  `id_surtidor` int NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(100) DEFAULT NULL,
-  `ubicacion` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`id_surtidor`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Volcado de datos para la tabla `surtidores`
---
-
-INSERT INTO `surtidores` (`id_surtidor`, `nombre`, `ubicacion`) VALUES
-(1, 'Beigin', 'Cochabamba'),
-(2, 'Cristo Concordia', 'Cochabamba');
+CREATE TABLE `surtidores` (
+  `id_surtidor` int(11) NOT NULL,
+  `nombre` varchar(100) NOT NULL,
+  `ubicacion` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -75,22 +55,70 @@ INSERT INTO `surtidores` (`id_surtidor`, `nombre`, `ubicacion`) VALUES
 -- Estructura de tabla para la tabla `vehiculos`
 --
 
-DROP TABLE IF EXISTS `vehiculos`;
-CREATE TABLE IF NOT EXISTS `vehiculos` (
-  `id_vehiculo` int NOT NULL AUTO_INCREMENT,
-  `placa` varchar(20) DEFAULT NULL,
+CREATE TABLE `vehiculos` (
+  `id_vehiculo` int(11) NOT NULL,
+  `placa` varchar(20) NOT NULL,
   `modelo` varchar(50) DEFAULT NULL,
-  `tipo_combustible` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`id_vehiculo`),
-  UNIQUE KEY `placa` (`placa`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `tipo_combustible` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `vehiculos`
+-- Índices para tablas volcadas
 --
 
-INSERT INTO `vehiculos` (`id_vehiculo`, `placa`, `modelo`, `tipo_combustible`) VALUES
-(1, 'HDK2034', 'Nissan', 'Gasolina 95');
+--
+-- Indices de la tabla `cargas`
+--
+ALTER TABLE `cargas`
+  ADD PRIMARY KEY (`id_carga`),
+  ADD KEY `id_vehiculo` (`id_vehiculo`),
+  ADD KEY `id_surtidor` (`id_surtidor`);
+
+--
+-- Indices de la tabla `surtidores`
+--
+ALTER TABLE `surtidores`
+  ADD PRIMARY KEY (`id_surtidor`);
+
+--
+-- Indices de la tabla `vehiculos`
+--
+ALTER TABLE `vehiculos`
+  ADD PRIMARY KEY (`id_vehiculo`),
+  ADD UNIQUE KEY `placa` (`placa`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `cargas`
+--
+ALTER TABLE `cargas`
+  MODIFY `id_carga` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `surtidores`
+--
+ALTER TABLE `surtidores`
+  MODIFY `id_surtidor` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `vehiculos`
+--
+ALTER TABLE `vehiculos`
+  MODIFY `id_vehiculo` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `cargas`
+--
+ALTER TABLE `cargas`
+  ADD CONSTRAINT `cargas_ibfk_1` FOREIGN KEY (`id_vehiculo`) REFERENCES `vehiculos` (`id_vehiculo`),
+  ADD CONSTRAINT `cargas_ibfk_2` FOREIGN KEY (`id_surtidor`) REFERENCES `surtidores` (`id_surtidor`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

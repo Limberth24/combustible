@@ -1,6 +1,9 @@
 <?php
 session_start();
-require_once 'config/db.php';
+require_once 'core/singleton/ConexionBD.php';
+
+$conexionBD = ConexionBD::obtenerInstancia();
+$conn = $conexionBD->obtenerConexion();
 
 $action = isset($_GET['action']) ? $_GET['action'] : 'landing';
 
@@ -44,6 +47,36 @@ switch ($action) {
         require_once 'controllers/HistorialController.php';
         $controller = new HistorialController($conn);
         $controller->generarReporte();
+        break;
+    case 'listarSurtidores':
+        require_once 'controllers/SurtidorController.php';
+        $controller = new SurtidorController($conn);
+        $controller->mostrarListado();
+        break;
+    case 'nuevoSurtidor':
+        require_once 'controllers/SurtidorController.php';
+        $controller = new SurtidorController($conn);
+        $controller->mostrarFormularioRegistro();
+        break;
+    case 'guardarSurtidor':
+        require_once 'controllers/SurtidorController.php';
+        $controller = new SurtidorController($conn);
+        $controller->guardarSurtidor();
+        break;
+    case 'editarSurtidor':
+        require_once 'controllers/SurtidorController.php';
+        $controller = new SurtidorController($conn);
+        $controller->mostrarFormularioEditar();
+        break;
+    case 'actualizarSurtidor':
+        require_once 'controllers/SurtidorController.php';
+        $controller = new SurtidorController($conn);
+        $controller->actualizarSurtidor();
+        break;
+    case 'eliminarSurtidor':
+        require_once 'controllers/SurtidorController.php';
+        $controller = new SurtidorController($conn);
+        $controller->eliminarSurtidor();
         break;
     case 'landing':
     default:

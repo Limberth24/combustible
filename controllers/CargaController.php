@@ -1,53 +1,67 @@
 <?php
+require_once 'core/factory/RepositorioFactory.php';
+require_once 'core/factory/CargaCombustibleFactory.php';
+require_once 'core/services/AnalisisRendimiento.php';
+require_once 'core/strategy/EstrategiaRendimientoEstandar.php';
 require_once 'models/Vehiculo.php';
 require_once 'models/Surtidor.php';
 require_once 'models/Carga.php';
 
-class CargaController {
-    private $conn;
-    
-    public function __construct($conn) {
-        $this->conn = $conn;
+class CargaController
+{
+    private $repositorioVehiculo;
+    private $repositorioSurtidor;
+    private $repositorioCarga;
+    private $analisisRendimiento;
+
+    public function __construct($conn)
+    {
+        $this->repositorioVehiculo = RepositorioFactory::crearVehiculoRepositorio($conn);
+        $this->repositorioSurtidor = RepositorioFactory::crearSurtidorRepositorio($conn);
+        $this->repositorioCarga = RepositorioFactory::crearCargaRepositorio($conn);
+        $this->analisisRendimiento = new AnalisisRendimiento(
+            new EstrategiaRendimientoEstandar()
+        );
     }
-    
-    public function mostrarBuscarPlaca() {
+
+    public function mostrarBuscarPlaca()
+    {
         require_once 'views/carga/buscar.php';
     }
-    
-    public function mostrarRegistroCarga() {
+
+    public function mostrarRegistroCarga()
+    {
         $placa = strtoupper(trim($_POST['placa']));
-        
-        $sql = "SELECT * FROM vehiculos WHERE placa = '$placa'";
-        $resultado = mysqli_query($this->conn, $sql);
-        
-        if(mysqli_num_rows($resultado) == 0) {
+        $vehiculo = $this->repositorioVehiculo->buscarPorPlaca($placa);
+
+        if ($vehiculo === null) {
             echo "<script>alert('No existe un vehiculo con la placa $placa'); window.location.href='index.php?action=buscarPlacaCarga';</script>";
             return;
         }
-        
-        $vehiculo = mysqli_fetch_assoc($resultado);
-        $sql = "SELECT * FROM surtidores ORDER BY nombre";
-        $surtidores = mysqli_query($this->conn, $sql);
-        
+
+        $surtidores = $this->repositorioSurtidor->listarTodos();
+        $cargas = $this->repositorioCarga->listarPorVehiculo($vehiculo->getId());
+        $resultadoAnalisis = $this->analisisRendimiento->analizarCargas($cargas);
+        $rendimientoPromedio = $resultadoAnalisis['promedio'];
+
         require_once 'views/carga/registro.php';
     }
-    
-    public function guardarCarga() {
-        $id_vehiculo = $_POST['id_vehiculo'];
+
+    public function guardarCarga()
+    {
+        $idVehiculo = (int)$_POST['id_vehiculo'];
         $fecha = $_POST['fecha'];
-        $kilometraje = $_POST['kilometraje'];
-        $litros = $_POST['litros'];
-        $precio_total = $_POST['precio_total'];
-        $id_surtidor = $_POST['id_surtidor'];
-        
-        $sql = "INSERT INTO cargas (fecha, kilometraje, litros, precio_total, id_vehiculo, id_surtidor) 
-                VALUES ('$fecha', $kilometraje, $litros, $precio_total, $id_vehiculo, $id_surtidor)";
-        
-        if(mysqli_query($this->conn, $sql)) {
+        $kilometraje = (float)$_POST['kilometraje'];
+        $litros = (float)$_POST['litros'];
+        $precioTotal = (float)$_POST['precio_total'];
+        $idSurtidor = (int)$_POST['id_surtidor'];
+
+        $carga = CargaCombustibleFactory::crear($fecha, $kilometraje, $litros, $precioTotal, $idVehiculo, $idSurtidor);
+
+        if ($this->repositorioCarga->guardar($carga)) {
             echo "<script>alert('Carga registrada exitosamente'); window.location.href='index.php?action=landing';</script>";
         } else {
-            echo "<script>alert('Error al registrar: " . mysqli_error($this->conn) . "'); window.location.href='index.php?action=buscarPlacaCarga';</script>";
+            echo "<script>alert('Error al registrar'); window.location.href='index.php?action=buscarPlacaCarga';</script>";
         }
     }
 }
-?>

@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Registrar Vehiculo</title>
+    <title>Registrar Surtidor</title>
     <link rel="stylesheet" href="assets/style.css">
 </head>
 
@@ -15,7 +15,7 @@
             </div>
             <ul class="nav-menu">
                 <li><a href="index.php?action=landing">Inicio</a></li>
-                <li><a href="index.php?action=nuevoRegistro" class="active">Nuevo Registro</a></li>
+                <li><a href="index.php?action=nuevoRegistro">Nuevo Registro</a></li>
                 <li><a href="index.php?action=buscarPlacaCarga">Registro</a></li>
                 <li><a href="index.php?action=buscarPlacaHistorial">Historial</a></li>
                 <li><a href="index.php?action=listarSurtidores">Surtidores</a></li>
@@ -23,27 +23,21 @@
         </div>
     </nav>
     <div class="form-card">
-        <h2>Registrar Nuevo Vehiculo</h2>
-        <form action="index.php?action=guardarVehiculo" method="POST">
+        <h2>Registrar Nuevo Surtidor</h2>
+        <form action="index.php?action=guardarSurtidor" method="POST">
             <div class="form-group">
-                <label>Placa</label>
-                <input type="text" name="placa" required placeholder="Ej: 1234ABC">
+                <label>Nombre</label>
+                <input type="text" name="nombre" required placeholder="Ej: Petrobras">
             </div>
             <div class="form-group">
-                <label>Modelo</label>
-                <input type="text" name="modelo" required placeholder="Ej: Toyota Corolla">
-            </div>
-            <div class="form-group">
-                <label>Tipo Combustible</label>
-                <select name="tipo_combustible" required>
-                    <option value="">Seleccione</option>
-                    <option value="Gasolina 95">Gasolina 95</option>
-                    <option value="Gasolina 97">Gasolina 97</option>
-                    <option value="Diesel">Diesel</option>
-                </select>
+                <label>Ubicación</label>
+                <input type="text" name="ubicacion" required placeholder="Ej: Cochabamba - Centro">
             </div>
             <button type="submit" class="btn-submit">Registrar</button>
         </form>
+        <div class="form-actions">
+            <a href="index.php?action=listarSurtidores" class="btn btn-secondary">Cancelar</a>
+        </div>
     </div>
     <footer class="footer">
         <div class="container">

@@ -49,7 +49,6 @@
                                 <td><?php echo htmlspecialchars($s->getUbicacion()); ?></td>
                                 <td class="acciones-cell">
                                     <a href="index.php?action=editarSurtidor&id=<?php echo $s->getId(); ?>" class="btn btn-accion btn-editar">✏️ Editar</a>
-                                    <button onclick="confirmarEliminar(<?php echo $s->getId(); ?>, '<?php echo htmlspecialchars($s->getNombre()); ?>')" class="btn-accion btn-eliminar">🗑️ Eliminar</button>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -67,13 +66,6 @@
             <p>2026 Sistema de Control de Consumo de Combustible</p>
         </div>
     </footer>
-    <script>
-        function confirmarEliminar(id, nombre) {
-            if (confirm('¿Está seguro de eliminar el surtidor "' + nombre + '"? Esto puede afectar las cargas asociadas.')) {
-                window.location.href = 'index.php?action=eliminarSurtidor&id=' + id;
-            }
-        }
-    </script>
 </body>
 
 </html>

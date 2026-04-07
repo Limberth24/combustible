@@ -17,6 +17,17 @@ class SurtidorController
         require_once 'views/surtidor/listado.php';
     }
 
+    public function eliminarSurtidor()
+    {
+        $id = (int)$_GET['id'];
+        
+        if ($this->repositorioSurtidor->eliminar($id)) {
+            echo "<script>alert('Surtidor eliminado exitosamente'); window.location.href='index.php?action=listarSurtidores';</script>";
+        } else {
+            echo "<script>alert('Error al eliminar. Verifique que no tenga cargas asociadas.'); window.location.href='index.php?action=listarSurtidores';</script>";
+        }
+    }
+
     public function mostrarFormularioRegistro()
     {
         require_once 'views/surtidor/registro.php';
@@ -71,17 +82,6 @@ class SurtidorController
             echo "<script>alert('Surtidor actualizado exitosamente'); window.location.href='index.php?action=listarSurtidores';</script>";
         } else {
             echo "<script>alert('Error al actualizar'); window.location.href='index.php?action=editarSurtidor&id=$id';</script>";
-        }
-    }
-
-    public function eliminarSurtidor()
-    {
-        $id = (int)$_GET['id'];
-        
-        if ($this->repositorioSurtidor->eliminar($id)) {
-            echo "<script>alert('Surtidor eliminado exitosamente'); window.location.href='index.php?action=listarSurtidores';</script>";
-        } else {
-            echo "<script>alert('Error al eliminar. Verifique que no tenga cargas asociadas.'); window.location.href='index.php?action=listarSurtidores';</script>";
         }
     }
 }

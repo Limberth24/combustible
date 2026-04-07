@@ -1,5 +1,5 @@
 <?php
-// Simple Dependency Injection Container
+
 class Container
 {
     private static $instances = [];
